@@ -1,0 +1,274 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #fdf6ec;
+  --blush: #f2c4c4;
+  --rose: #d4788a;
+  --deep: #7a2d3e;
+  --text: #3a1a22;
+  --gold: #c9a86c;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lora', serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Petal background */
+.petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.petal {
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  0%   { transform: translateY(-60px) rotate(0deg); opacity: 0.7; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* Card */
+.card {
+  position: relative;
+  z-index: 10;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid var(--blush);
+  border-radius: 24px;
+  padding: 52px 48px 48px;
+  max-width: 480px;
+  width: 92%;
+  text-align: center;
+  box-shadow: 0 8px 48px rgba(212,120,138,0.14), 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.heart-icon {
+  font-size: 2.8rem;
+  animation: heartbeat 1.4s ease-in-out infinite;
+  display: block;
+  margin-bottom: 12px;
+}
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  14%      { transform: scale(1.18); }
+  28%      { transform: scale(1); }
+  42%      { transform: scale(1.12); }
+  70%      { transform: scale(1); }
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: var(--deep);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+h1 em { color: var(--rose); font-style: italic; }
+
+.divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 18px auto;
+}
+
+.letter {
+  font-size: 0.97rem;
+  color: var(--text);
+  line-height: 1.85;
+  text-align: left;
+  margin-bottom: 32px;
+}
+.letter .highlight {
+  color: var(--rose);
+  font-weight: 500;
+}
+
+/* Question */
+.question {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--deep);
+  margin-bottom: 28px;
+  font-style: italic;
+}
+
+/* Buttons */
+.btn-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 14px 32px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.btn:active { transform: translateY(0); }
+
+.btn-yes {
+  background: linear-gradient(135deg, var(--rose), var(--deep));
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(212,120,138,0.35);
+}
+.btn-no {
+  background: transparent;
+  border: 1.5px solid var(--rose);
+  color: var(--rose);
+}
+
+/* Accept screen */
+#accept-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+#accept-screen .big-heart {
+  font-size: 5rem;
+  animation: popIn 0.5s cubic-bezier(.36,1.5,.6,1) both;
+}
+@keyframes popIn {
+  0%   { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+#accept-screen .accept-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  color: var(--deep);
+  font-style: italic;
+}
+#accept-screen small {
+  font-size: 0.85rem;
+  color: var(--rose);
+}
+#accept-screen .accept-note {
+  font-size: 0.88rem;
+  color: var(--text);
+  font-style: normal;
+  line-height: 1.8;
+}
+
+/* WhatsApp button */
+.btn-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 12px 28px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: #25D366;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.btn-wa:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+}
+
+/* Confetti */
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+  animation: confettiFall 1.8s ease-in forwards;
+}
+@keyframes confettiFall {
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
+
+/* Hidden / vanish */
+.hidden { display: none !important; }
+.fade-out { animation: fadeOut 0.4s forwards; }
+@keyframes fadeOut {
+  to { opacity: 0; transform: scale(0.9); pointer-events: none; }
+}
+
+/* Tombol jokowi yang muncul */
+#jokowi-btn {
+  display: none;
+  margin: 16px auto 0;
+  padding: 14px 32px;
+  border-radius: 50px;
+  border: 1.5px dashed var(--gold);
+  background: transparent;
+  color: var(--text);
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  animation: gentlePop 0.5s cubic-bezier(.36,1.5,.6,1) both;
+}
+#jokowi-btn:hover { background: rgba(201,168,108,0.12); }
+@keyframes gentlePop {
+  0%   { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Chat bubble area */
+#chat-area {
+  display: none;
+  margin-top: 18px;
+  text-align: left;
+}
+.chat-bubble {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--rose), var(--deep));
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 16px 16px 16px 4px;
+  font-size: 0.97rem;
+  opacity: 0;
+  transform: translateX(-18px);
+  transition: opacity 0.4s, transform 0.4s;
+  max-width: 100%;
+}
+.chat-bubble.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+.chat-label {
+  font-size: 0.75rem;
+  color: var(--rose);
+  margin-bottom: 4px;
+  font-style: italic;
+}
+
+/* Audio note */
+.audio-note {
+  font-size: 0.78rem;
+  color: #999;
+  margin-top: 10px;
+  font-style: italic;
+}
