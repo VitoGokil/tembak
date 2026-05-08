@@ -33,6 +33,13 @@ function handleNo() {
 
 // ——— Jokowi button ———
 function handleJokowi() {
+  // Langsung play audio di sini — karena dipicu klik user, browser izinkan
+  const audio = document.getElementById('jokowi-audio');
+  audio.load();
+  audio.play().catch((e) => {
+    console.warn('Audio gagal:', e);
+  });
+
   document.getElementById('jokowi-btn').style.display = 'none';
 
   const chatArea = document.getElementById('chat-area');
@@ -44,33 +51,15 @@ function handleJokowi() {
 
   setTimeout(() => {
     bubble.classList.add('show');
-    typeWriter(bubble, fullText, 0, function () {
-      playJokowi();
-    });
+    typeWriter(bubble, fullText, 0);
   }, 200);
 }
 
 // ——— Typing effect ———
-function typeWriter(el, text, i, callback) {
+function typeWriter(el, text, i) {
   if (i < text.length) {
     el.textContent += text[i];
-    setTimeout(() => typeWriter(el, text, i + 1, callback), 55);
-  } else if (callback) {
-    callback();
-  }
-}
-
-// ——— Play audio Jokowi ———
-function playJokowi() {
-  const audio = document.getElementById('jokowi-audio');
-  const note = document.getElementById('audio-note');
-  if (audio.querySelector('source')) {
-    audio.play().catch(() => {});
-    note.style.display = 'block';
-    note.textContent = '🔊 (suara Pak Jokowi)';
-  } else {
-    note.style.display = 'block';
-    note.textContent = '🔊 "Yo ndak tahu kok tanya saya" — Pak Jokowi (tambahkan file yo-ndak-tahu.mp3 ya!)';
+    setTimeout(() => typeWriter(el, text, i + 1), 55);
   }
 }
 
@@ -93,4 +82,4 @@ function launchConfetti() {
       setTimeout(() => c.remove(), 3000);
     }, i * 30);
   }
-}
+      }
